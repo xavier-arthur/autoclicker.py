@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
-from keypress import *
-from time import sleep
+from keypress import wait_input
 from pynput.mouse import Button, Controller
+from time import sleep
 import argparse
 
 def getArgs():
@@ -15,8 +15,8 @@ def getArgs():
     help="waits until chosen key is pressed to start clicking default='c'",
     default="c")
 
-    args.add_argument("-U", "--undefined", action="count",
-    help="don't stop cliking until the cursor is moven")
+    args.add_argument("-U", "--unlimited", action="count",
+    help="don't stop cliking until the cursor is moved")
 
     return args.parse_args()
 
@@ -25,8 +25,7 @@ def main():
     m = Controller()
 
     if args.wait:
-       set_target(args.wait)
-       listen()
+       wait_input(args.wait)
 
     # quits if cursor has moved
     i = 0
@@ -34,7 +33,7 @@ def main():
     while i < args.times and m.position == position:
         m.click(Button.left)
         sleep(0.01)
-        if not args.undefined:
+        if not args.unlimited:
             i += 1
 
 if __name__ == "__main__":

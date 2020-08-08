@@ -9,11 +9,9 @@ def on_press(key):
     except:
         pass
 
-def listen():
-    with keyboard.Listener(on_press=on_press) as listener:
-        listener.join()
-
-def set_target(trgt):
-    #target : string
+def wait_input(trgt):
     global target
     target = trgt
+
+    with keyboard.Listener(on_press=on_press) as listener:
+        listener.join()
